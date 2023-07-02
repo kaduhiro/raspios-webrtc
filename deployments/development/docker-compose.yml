@@ -1,0 +1,22 @@
+version: '3.8'
+
+x-network: &NETWORK
+  network_mode: host
+
+services:
+  raspios-webrtc:
+    build: ../../build
+    image: raspios-webrtc:1
+    container_name: raspios-webrtc
+    hostname: raspios-webrtc
+    privileged: true
+    devices:
+      - /dev/video0
+      - /dev/snd
+    <<: *NETWORK
+    volumes:
+      - ../..:/app
+    restart: always
+    environment:
+      ENVIRONMENT: $ENVIRONMENT
+    command: make
