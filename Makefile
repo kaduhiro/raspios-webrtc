@@ -36,7 +36,7 @@ momo/run: # start streaming with Momo
 # ==================================================
 .PHONY: v4l v4l/help
 
-v4l:
+v4l: # set the value of the video controls
 	ctrls=$$($(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -C brightness,contrast,saturation)
 	printf "$$ctrls" | nl
 	n=$$(.prompt 'control' 'number')
@@ -47,7 +47,7 @@ v4l:
 	if [ "$$yn" = 'y' ]; then
 		$(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -c $$ctrl=$$after
 	fi
-v4l/help:
+v4l/help: # display all video controls and their menus
 	$(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -L
 
 # ==================================================
