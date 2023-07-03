@@ -14,6 +14,9 @@ targets:
     alsa/init         initialize configuration for ALSA
     momo/init         download binary for WebRTC Native Client Momo
     momo/run          start streaming with Momo
+  video4linux:
+    v4l               set the value of the video controls
+    v4l/help          display all video controls and their menus
   docker:
     build/[service]   build or rebuild a image
     run/[service]     run a one-off command on a container
