@@ -1,5 +1,9 @@
 # WebRTC Streamer in Raspberry Pi OS
 
+## Features
+
+Real-time video streaming using [WebRTC Native Client Momo](https://github.com/shiguredo/momo) on Raspberry Pi OS.
+
 ## Usage
 
 ```
@@ -31,3 +35,11 @@ targets:
     help              list available targets and some
     clean             remove cache files from the working directory
 ```
+
+## Author
+
+[Twitter](https://twitter.com/kaduhiro_)
+
+## License
+
+[MIT](https://en.wikipedia.org/wiki/MIT_License)
