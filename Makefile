@@ -32,6 +32,25 @@ momo/run: # start streaming with Momo
 	cd bin && ./momo test
 
 # ==================================================
+# .TARGET: video4linux
+# ==================================================
+.PHONY: v4l v4l/help
+
+v4l:
+	ctrls=$$($(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -C brightness,contrast,saturation)
+	printf "$$ctrls" | nl
+	n=$$(.prompt 'control' 'number')
+	ctrl=$$(printf "$$ctrls" | sed -n $${n}p | cut -d':' -f1)
+	before=$$(printf "$$ctrls" | sed -n $${n}p | cut -d' ' -f2)
+	after=$$(.prompt "value" "$$before" "$$before")
+	yn=$$(.prompt "change '$$ctrl' from '$$before' to '$$after'" 'y/N')
+	if [ "$$yn" = 'y' ]; then
+		$(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -c $$ctrl=$$after
+	fi
+v4l/help:
+	$(DOCKER_COMPOSE) exec $(SERVICE) v4l2-ctl -L
+
+# ==================================================
 # .TARGET: docker
 # ==================================================
 .PHONY: build build/% run run/% up up/% exec exec/% down down/% logs log log/%
